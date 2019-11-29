@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  tasks:
+#    - set_fact: zookeeper="127.0.0.1"
+#    - set_fact: kafka1="127.0.0.1"
+    - name: create topic
+      kafka_lib:
+        resource: 'topic'
+        api_version: "1.0.1"
+        name: 'test'
+        partitions: 2
+        replica_factor: 1
+        options:
+          retention.ms: 574930
+          flush.ms: 12345
+        state: "present"
+        zookeeper: "{{ zookeeper }}:2181"
+        bootstrap_servers: "{{ kafka }}:9092"
